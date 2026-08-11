@@ -1,0 +1,17 @@
+{
+  "name": "03_expressjs",
+  "version": "1.0.0",
+  "description": "in this tutorial I'm going to learn expressJS",
+  "license": "ISC",
+  "author": "Anikesh Roy",
+  "type": "commonjs",
+  "main": "script.js",
+  "scripts": {
+    "dev": "nodemon script.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  }
+}
