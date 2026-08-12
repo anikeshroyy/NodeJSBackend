@@ -18,6 +18,13 @@ app.get('/', (req, res) => {
     })
 })
 
+app.get(`/files/:filename`, (req, res) => {
+    fs.readFile(`./files/${req.params.filename}`, 'utf-8', (err, fileData) => {
+        console.log(fileData);
+        res.render("show", { filename: req.params.filename, fileData: fileData })
+    })
+})
+
 app.post('/create', (req, res) => {
     const title = req.body.title;
     const description = req.body.description
