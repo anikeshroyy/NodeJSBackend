@@ -31,7 +31,12 @@ Each folder contains a separate standalone project with its own `package.json` a
    - Key topics: routing, templating with EJS, static files, views, and a small app structure.
    - Entry point: `script.js`
    - Package name: `04_miniproject`
-   - Notes: Includes `public/` static assets and `views/` templates.
+
+5. **05_MongoDB**
+   - Purpose: Created a small DB based user creation, updation and deletion project using Express.
+   - Key topics: routing, UserSchema, UserModel, mongoose.
+   - Entry point: `app.js`
+   - Package name: `05_MongoDB`
 
 ## How to Use
 
@@ -52,4 +57,3 @@ Each folder contains a separate standalone project with its own `package.json` a
 - Instagram: https://instagram.com/anikesh.royy
 - Facebook: https://facebook.com/anikesh.royy
 - Email: anikeshworkmail@google.com
-
