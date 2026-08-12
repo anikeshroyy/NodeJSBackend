@@ -30,6 +30,15 @@ app.post('/create', async (req, res) => {
     console.log(user);
 })
 
+app.get('/delete/:id', async (req, res) => {
+    let deletedUser = await userModel.findOneAndDelete({
+        _id: req.params.id
+    })
+
+    console.log("Deleted User:", deletedUser)
+    res.redirect('/')
+})
+
 app.listen(PORT, () => {
     console.log("Server is Running...");
 })

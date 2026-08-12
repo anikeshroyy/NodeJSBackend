@@ -59,6 +59,15 @@
                                         Email - <%= users.userEmail %>
                                     </h3>
 
+                                    <div class="mt-4 flex justify-between items-center">
+                                        <a href="/edit/<%= users._id  %>"
+                                            class="text-center px-4 py-1 rounded-md bg-green-500 text-white font-semibold">Edit
+                                            User</a>
+                                        <a href="/delete/<%= users._id  %>"
+                                            class="text-center px-4 py-1 rounded-md bg-red-500 text-white font-semibold">Delete
+                                            User</a>
+                                    </div>
+
                                 </div>
 
                                 <% }); %>
