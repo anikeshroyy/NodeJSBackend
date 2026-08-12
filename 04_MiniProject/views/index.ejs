@@ -35,7 +35,10 @@
                         <h1 class="text-2xl">
                             <%= val %>
                         </h1>
-                    <a href="/files/<%= val %>" class="text-blue-500">Read More</a>
+                        <div class="flex items-center justify-between mt-4">
+                            <a href="/files/<%= val %>" class="text-blue-500">Read More</a>
+                            <a href="/edit/<%= val %>" class="text-orange-500">Edit Filename</a>
+                        </div>
                     </div>
                     <% }); %>
                         <% } else { %>

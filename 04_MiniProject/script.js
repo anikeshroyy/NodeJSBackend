@@ -25,6 +25,21 @@ app.get(`/files/:filename`, (req, res) => {
     })
 })
 
+app.get('/edit/:filename', (req, res) => {
+    res.render("edit", { filename: req.params.filename })
+})
+
+app.post(`/edit`, (req, res) => {
+    fs.rename(`./files/${req.body.oldName}`, `./files/${req.body.newName}`, (err) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.redirect('/')
+        }
+    })
+})
+
 app.post('/create', (req, res) => {
     const title = req.body.title;
     const description = req.body.description
