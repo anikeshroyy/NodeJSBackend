@@ -34,6 +34,13 @@ app.get('/read', async (req, res) => {
     res.send(allUser)
 })
 
+app.get('/delete', async (req, res) => {
+    let deletedUser = await userModel.findOneAndDelete({ userName: "aniraj343" })
+
+    console.log(deletedUser);
+    res.send(deletedUser)
+})
+
 app.listen(PORT, () => {
     console.log("Server is Running on", `localhost:${PORT}`);
 })
