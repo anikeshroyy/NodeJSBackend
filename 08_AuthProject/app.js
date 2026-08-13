@@ -15,7 +15,7 @@ app.use(cookieParser())
 
 app.set("view engine", "ejs")
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
     res.render("home")
@@ -40,7 +40,7 @@ app.post('/createAccount', async (req, res) => {
                     userName,
                     password: hash,
                 })
-                
+
                 console.log("User Account Created:", newUser);
             })
         })

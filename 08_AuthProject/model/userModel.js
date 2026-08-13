@@ -1,7 +1,7 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
-const MongoConnetingString = `mongodb://localhost:27017/AuthPractice`
-mongoose.connect(MongoConnetingString)
+mongoose.connect(process.env.MONGO_URI)
 
 const userSchema = mongoose.Schema({
     name: String,
