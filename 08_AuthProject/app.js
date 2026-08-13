@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 const path = require('path')
 const bcrypt = require('bcrypt')
 
-const userModel = require('./userModel')
+const userModel = require('./model/userModel')
 const { log } = require('console')
 
 const app = express()
@@ -19,7 +19,15 @@ app.set("view engine", "ejs")
 const PORT = 3000
 
 app.get('/', (req, res) => {
-    res.render("index")
+    res.render("home")
+})
+
+app.get('/signup', (req, res) => {
+    res.render("signup")
+})
+
+app.get('/login', (req, res) => {
+    res.render("login")
 })
 
 app.post('/createAccount', (req, res) => {
@@ -32,11 +40,10 @@ app.post('/createAccount', (req, res) => {
                 userName,
                 password: hash,
             })
+            console.log("User Account Created:", newUser);
         })
     })
-
     res.redirect('/')
-    console.log("User Account Created");
 })
 
 app.listen(PORT, () => {
