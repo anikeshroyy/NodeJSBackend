@@ -39,6 +39,24 @@ app.get('/delete/:id', async (req, res) => {
     res.redirect('/')
 })
 
+app.get('/edit/:id', async (req, res) => {
+    let updateUser = await userModel.findOne({ _id: req.params.id })
+    res.render("edit", { updateUser: updateUser })
+})
+
+
+app.post('/edit/:id', async (req, res) => {
+
+    let updatedUser = await userModel.findOneAndUpdate({ _id: req.params.id }, {
+        name: req.body.name,
+        userName: req.body.userName,
+        userEmail: req.body.userEmail,
+    }, { new: true })
+
+    console.log("updatedUser:", updatedUser)
+    res.redirect('/')
+})
+
 app.listen(PORT, () => {
     console.log("Server is Running...");
 })
