@@ -2,58 +2,74 @@
 
 ## Overview
 
-This repository contains a set of small Node.js backend projects and tutorials designed for learning core Node.js features, building basic HTTP servers, working with Express, and creating a simple mini project with views and static assets.
+This workspace contains several small, focused Node.js backend projects and tutorials for learning core Node.js and Express patterns. Each project lives in its own folder with an individual `package.json` and a small example app.
 
-Each folder contains a separate standalone project with its own `package.json` and scripts.
+## Projects
 
-## Project List
-
-1. **01_FileSystem**
-   - Purpose: Learn and practice Node.js filesystem operations.
-   - Key topics: reading files, writing files, and working with the `fs` module.
+1. **01_FileSystem/**
+   - Purpose: Practice Node.js filesystem operations.
+   - Key topics: reading and writing files with the `fs` module.
    - Entry point: `script.js`
-   - Package name: `filesystem`
 
-2. **02_CreateServer**
-   - Purpose: Build a simple Node.js HTTP server from scratch.
-   - Key topics: native Node `http` module, request handling, basic server setup.
-   - Entry point: `index.js`
-   - Package name: `02_createserver`
-
-3. **03_ExpressJs**
-   - Purpose: Learn Express.js and build an application with routing.
-   - Key topics: Express server setup, middleware, route handling, using `nodemon` for development.
+2. **02_CreateServer/**
+   - Purpose: Build a basic HTTP server from scratch.
+   - Key topics: native Node `http` module, request handling, server setup.
    - Entry point: `script.js`
-   - Package name: `03_expressjs`
 
-4. **04_MiniProject**
-   - Purpose: Create a small full-stack mini project using Express and EJS templates.
-   - Key topics: routing, templating with EJS, static files, views, and a small app structure.
+3. **03_ExpressJs/**
+   - Purpose: Learn Express.js fundamentals and routing.
+   - Key topics: Express setup, middleware, routing, development with `nodemon`.
    - Entry point: `script.js`
-   - Package name: `04_miniproject`
 
-5. **05_MongoDB**
-   - Purpose: Created a small DB based user creation, updation and deletion project using Express.
-   - Key topics: routing, UserSchema, UserModel, mongoose.
+4. **04_MiniProject/**
+   - Purpose: Small Express app demonstrating EJS templating and static assets.
+   - Key topics: routing, EJS views, static `public` folder, basic CRUD patterns.
+   - Entry point: `script.js`
+   - Notable folders: `public/` (static assets), `views/` (EJS templates), `files/` (example data files)
+
+5. **05_MongoDB/**
+   - Purpose: Example Express app using MongoDB (Mongoose) for user CRUD.
+   - Key topics: Mongoose schemas, models, create/update/delete routes.
    - Entry point: `app.js`
-   - Package name: `05_MongoDB`
 
-## How to Use
+6. **06_UserDBProject/**
+   - Purpose: Another small user-management Express example using a user model.
+   - Key topics: routing, views, basic DB interactions.
+   - Entry point: `app.js`
 
-- Install dependencies for a project by navigating to its folder and running:
-  ```bash
-  npm install
-  ```
-- Start development for a project with:
-  ```bash
-  npm run dev
-  ```
-  (if the project includes a `dev` script)
+## Quick Usage
 
-## Respected Owner 😂
+- Install dependencies for a project by changing into its folder and running:
+
+```bash
+cd 04_MiniProject
+npm install
+```
+
+- Start a project (if it includes a `dev` or `start` script):
+
+```bash
+npm run dev
+# or
+npm start
+```
+
+If a project does not include `dev`/`start` scripts, run the entry file directly:
+
+```bash
+node script.js
+# or
+node app.js
+```
+
+## Notes
+
+- Each project is intentionally small and self-contained for learning. Inspect the folder `package.json` files to see available scripts for each project.
+
+## Contact
 
 - Portfolio: https://www.anikeshroy.in
 - LinkedIn: https://linkedin.com/in/anikeshroy
 - Instagram: https://instagram.com/anikesh.royy
 - Facebook: https://facebook.com/anikesh.royy
-- Email: anikeshworkmail@google.com
+- Email: anikeshworkmail@gmail.com
