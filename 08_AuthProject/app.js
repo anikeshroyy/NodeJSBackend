@@ -46,6 +46,24 @@ app.post('/createAccount', (req, res) => {
     res.redirect('/')
 })
 
+app.post('/login', async (req, res) => {
+    let user = await userModel.findOne({ userName: req.body.userName });
+    if (!user) {
+        console.log("User Not Found")
+        return res.send("Something Went Wrong")
+    }
+    else {
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
+            if (result) {
+                res.send("You Can Login")
+                console.log(result);
+            }
+            res.send("Something Went Wrong")
+            console.log("Password Not Matched");
+        })
+    }
+})
+
 app.listen(PORT, () => {
     console.log("Server Started...")
 })
