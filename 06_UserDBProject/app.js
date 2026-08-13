@@ -3,7 +3,6 @@ const express = require('express')
 const path = require('path')
 
 const userModel = require('./UserModel');
-const { log } = require('console');
 
 const app = express()
 const PORT = 3000;
