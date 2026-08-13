@@ -5,7 +5,6 @@ const path = require('path')
 const bcrypt = require('bcrypt')
 
 const userModel = require('./model/userModel')
-const { log } = require('console')
 
 const app = express()
 
@@ -30,20 +29,26 @@ app.get('/login', (req, res) => {
     res.render("login")
 })
 
-app.post('/createAccount', (req, res) => {
-    let { name, userName, password } = req.body
+app.post('/createAccount', async (req, res) => {
+    try {
+        let { name, userName, password } = req.body
 
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, async (err, hash) => {
-            let newUser = await userModel.create({
-                name,
-                userName,
-                password: hash,
+        await bcrypt.genSalt(10, async (err, salt) => {
+            await bcrypt.hash(password, salt, async (err, hash) => {
+                let newUser = await userModel.create({
+                    name,
+                    userName,
+                    password: hash,
+                })
+                
+                console.log("User Account Created:", newUser);
             })
-            console.log("User Account Created:", newUser);
         })
-    })
-    res.redirect('/')
+        res.redirect('login')
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Something went wrong")
+    }
 })
 
 app.post('/login', async (req, res) => {
@@ -55,11 +60,16 @@ app.post('/login', async (req, res) => {
     else {
         bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result) {
-                res.send("You Can Login")
+                const token = jwt.sign(
+                    { userName: user.userName },
+                    "secrets"
+                )
+                res.cookie("token", token)
                 console.log(result);
+                return res.send("You Can Login")
             }
-            res.send("Something Went Wrong")
             console.log("Password Not Matched");
+            return res.send("Something Went Wrong")
         })
     }
 })
