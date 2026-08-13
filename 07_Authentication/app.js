@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser')
 
 const bcrypt = require('bcrypt')
 
+const jwt = require('jsonwebtoken')
+
 const express = require('express')
 const app = express()
 
@@ -42,6 +44,19 @@ app.get('/comparepassword', (req, res) => {
 app.get('/test', (req, res) => {
     console.log(req.cookies);
     res.send("Hello From Server")
+})
+
+app.get('/jwt', (req, res) => {
+    const token = jwt.sign({ email: "aniraj@gmail.com" }, "secrets")
+    res.cookie("token", token)
+    res.send("Jwt Token Generated")
+    console.log(token);
+})
+
+app.get('/jwtverify', (req, res) => {
+    let data = jwt.verify(req.cookies.token, "secrets")
+    console.log(data);
+    res.send("JWT Verififed")
 })
 
 
