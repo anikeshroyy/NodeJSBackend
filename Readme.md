@@ -37,6 +37,23 @@ This workspace contains several small, focused Node.js backend projects and tuto
    - Key topics: routing, views, basic DB interactions.
    - Entry point: `app.js`
 
+7. **07_Authentication/**
+   - Purpose: Learn authentication patterns and concepts.
+   - Key topics: authentication flow, password handling, session management.
+   - Entry point: `app.js`
+
+8. **08_AuthProject/**
+   - Purpose: Full authentication project with user model and views.
+   - Key topics: user registration, login, signup forms, middleware, authentication.
+   - Entry point: `app.js`
+   - Notable folders: `model/` (user schema), `public/` (static assets), `views/` (EJS templates)
+
+9. **09_DataAssociation/**
+   - Purpose: Learn data associations and relationships between models.
+   - Key topics: one-to-many relationships, Mongoose population, data linking.
+   - Entry point: `app.js`
+   - Notable folders: `models/` (post and user models with relationships)
+
 ## Quick Usage
 
 - Install dependencies for a project by changing into its folder and running:
@@ -66,7 +83,7 @@ node app.js
 
 - Each project is intentionally small and self-contained for learning. Inspect the folder `package.json` files to see available scripts for each project.
 
-## Contact
+## Proud Owner 😎
 
 - Portfolio: https://www.anikeshroy.in
 - LinkedIn: https://linkedin.com/in/anikeshroy
