@@ -52,11 +52,35 @@ app.post('/signup', async (req, res) => {
                 })
 
                 console.log("User is created");
-                res.redirect("/")
+                res.redirect("/login")
             })
         })
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
+    }
+})
+
+
+app.post('/login', async (req, res) => {
+    try {
+        let loggedInUser = await userModel.findOne({ email: req.body.email })
+        if (!loggedInUser) {
+            console.log("Email Not Found");
+            return res.send("Either email or password is incorrect")
+        }
+
+        await bcrypt.compare(req.body.password, loggedInUser.password, (err, result) => {
+            if (!result) {
+                console.log("Password Not Matched");
+                return res.send("Either email or password is incorrect")
+            }
+
+            console.log(result);
+            res.send("You are logged in")
+        })
+
+    } catch (error) {
+        console.error(error.message);
     }
 })
 
