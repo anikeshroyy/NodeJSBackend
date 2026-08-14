@@ -3,6 +3,10 @@ const ejs = require('ejs')
 
 const path = require('path')
 
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const cookieParser = require('cookie-parser')
+
 const connectDb = require('./models/DB_config')
 const userModel = require('./models/user')
 
@@ -36,14 +40,24 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/signup', async (req, res) => {
-    let newUser = await userModel.create({
-        name: req.body.fullName,
-        password: req.body.password,
-        email: req.body.email
-    })
+    try {
 
-    console.log(newUser);
-    res.send(newUser)
+        let saltRound = 10;
+        await bcrypt.genSalt(saltRound, async (err, salt) => {
+            await bcrypt.hash(req.body.password, salt, async (err, hash) => {
+                let newUser = await userModel.create({
+                    name: req.body.fullName,
+                    password: hash,
+                    email: req.body.email
+                })
+
+                console.log("User is created");
+                res.redirect("/")
+            })
+        })
+    } catch (error) {
+        console.error(error);
+    }
 })
 
 app.listen(PORT, () => {
