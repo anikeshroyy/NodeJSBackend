@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | <%= user.name %>
+    </title>
+
+    <link rel="stylesheet" href="/styles/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-slate-950 text-slate-200">
+
+    <!-- Navbar -->
+    <nav class="border-b border-slate-800 bg-slate-950/80 backdrop-blur">
+        <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+
+            <!-- Logo -->
+            <a href="/" class="font-space text-3xl font-bold">
+                Vibely<span class="text-blue-500">.</span>
+            </a>
+
+            <!-- Navigation -->
+            <div class="flex items-center gap-5">
+
+                <a href="/" class="font-poppins text-sm text-slate-400 hover:text-blue-400 transition">
+                    Home
+                </a>
+
+                <a href="/profile" class="font-poppins text-sm text-blue-400">
+                    Profile
+                </a>
+
+                <a href="/login" class="font-poppins text-sm text-slate-400 hover:text-red-400 transition">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- Profile -->
+    <main class="max-w-4xl mx-auto px-5 py-10">
+
+        <!-- Profile Header -->
+        <section class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
+
+            <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+
+                <!-- Avatar -->
+                <div
+                    class="w-28 h-28 shrink-0 rounded-full bg-linear-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    <img src="" alt="">
+                </div>
+
+
+                <!-- User Info -->
+                <div class="flex-1">
+
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+
+                        <div>
+                            <h1 class="font-space text-3xl font-bold text-slate-100">
+                                <%= user.name %>
+                            </h1>
+
+                            <p class="font-dm text-slate-500">
+                                <%= user.email %>
+                            </p>
+                        </div>
+
+                        <a href="/profile/edit"
+                            class="sm:ml-auto text-center border border-slate-700 hover:border-blue-500 hover:text-blue-400 rounded-xl px-5 py-2 font-poppins text-sm transition">
+                            Edit Profile
+                        </a>
+
+                    </div>
+
+
+                    <!-- Bio -->
+                    <p class="font-dm text-slate-300 mt-5 max-w-xl">
+                        Building things, sharing thoughts and enjoying the journey.
+                    </p>
+
+                    <p class="font-caveat text-2xl text-blue-400 mt-2">
+                        just sharing my vibe ✨
+                    </p>
+
+
+                    <!-- Stats -->
+                    <!-- <div class="flex gap-8 mt-6">
+
+                        <div>
+                            <p class="font-space text-xl font-bold text-slate-100">
+                                24
+                            </p>
+
+                            <p class="font-dm text-sm text-slate-500">
+                                Posts
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="font-space text-xl font-bold text-slate-100">
+                                128
+                            </p>
+
+                            <p class="font-dm text-sm text-slate-500">
+                                Followers
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="font-space text-xl font-bold text-slate-100">
+                                96
+                            </p>
+
+                            <p class="font-dm text-sm text-slate-500">
+                                Following
+                            </p>
+                        </div>
+
+                    </div> -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Posts Section -->
+        <section class="mt-8">
+
+            <div class="flex items-center justify-between mb-5">
+
+                <h2 class="font-space text-2xl font-bold">
+                    Your Posts
+                </h2>
+
+                <button
+                    class="font-poppins text-sm bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl transition shadow-lg shadow-blue-600/20">
+                    + Create Post
+                </button>
+
+            </div>
+
+
+            <!-- Post -->
+            <article
+                class="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-5 hover:border-slate-700 transition">
+
+                <div class="flex items-center justify-between">
+
+                    <div class="flex items-center gap-3">
+
+                        <div
+                            class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-space font-bold">
+                            AR
+                        </div>
+
+                        <div>
+                            <h3 class="font-poppins font-semibold text-sm">
+                                Anikesh Roy
+                            </h3>
+
+                            <p class="font-dm text-xs text-slate-500">
+                                @anikesh · 2h ago
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <button class="text-slate-500 hover:text-slate-300 text-xl">
+                        ⋮
+                    </button>
+
+                </div>
+
+
+                <p class="font-dm text-slate-300 leading-7 mt-5">
+                    Sometimes the smallest ideas turn into the biggest projects.
+                    Keep building, keep learning and keep sharing.
+                </p>
+
+
+                <!-- Post Actions -->
+                <div class="flex items-center gap-6 mt-5 pt-4 border-t border-slate-800">
+
+                    <button class="font-dm text-sm text-slate-500 hover:text-pink-400 transition">
+                        ♡ Like
+                    </button>
+
+                    <button class="font-dm text-sm text-slate-500 hover:text-blue-400 transition">
+                        💬 Comment
+                    </button>
+
+                    <button class="font-dm text-sm text-slate-500 hover:text-green-400 transition">
+                        ↗ Share
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- Another Post -->
+            <article class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+
+                <div class="flex items-center gap-3">
+
+                    <div
+                        class="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center font-space font-bold">
+                        AR
+                    </div>
+
+                    <div>
+                        <h3 class="font-poppins font-semibold text-sm">
+                            Anikesh Roy
+                        </h3>
+
+                        <p class="font-dm text-xs text-slate-500">
+                            @anikesh · Yesterday
+                        </p>
+                    </div>
+
+                </div>
+
+                <p class="font-dm text-slate-300 leading-7 mt-5">
+                    Welcome to Vibely 🚀
+                </p>
+
+                <p class="font-caveat text-3xl text-blue-400 mt-2">
+                    Your thoughts deserve a place.
+                </p>
+
+                <div class="flex items-center gap-6 mt-5 pt-4 border-t border-slate-800">
+
+                    <button class="font-dm text-sm text-slate-500 hover:text-pink-400 transition">
+                        ♡ Like
+                    </button>
+
+                    <button class="font-dm text-sm text-slate-500 hover:text-blue-400 transition">
+                        💬 Comment
+                    </button>
+
+                    <button class="font-dm text-sm text-slate-500 hover:text-green-400 transition">
+                        ↗ Share
+                    </button>
+
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

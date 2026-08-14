@@ -17,6 +17,7 @@ const PORT = 3000;
 connectDb();
 
 // Middleware
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -78,8 +79,29 @@ app.post('/login', async (req, res) => {
             let token = jwt.sign({ email: loggedInUser.email }, "secrets")
             res.cookie("token", token)
             console.log(result);
-            res.send("You are logged in")
+            // res.send("You are logged in")
+            res.redirect("/profile")
         })
+
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+app.get('/profile', async (req, res) => {
+    try {
+        const token = await req.cookies.token;
+
+        if (!token) {
+            console.log("Token Not Present")
+            return res.redirect('/login')
+        }
+
+        const validUser = jwt.verify(token, "secrets")
+
+        const user = await userModel.findOne({ email: validUser.email })
+
+        res.render("userProfile", { user })
 
     } catch (error) {
         console.error(error.message);
