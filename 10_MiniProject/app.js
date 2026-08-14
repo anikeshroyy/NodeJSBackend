@@ -75,6 +75,8 @@ app.post('/login', async (req, res) => {
                 return res.send("Either email or password is incorrect")
             }
 
+            let token = jwt.sign({ email: loggedInUser.email }, "secrets")
+            res.cookie("token", token)
             console.log(result);
             res.send("You are logged in")
         })
