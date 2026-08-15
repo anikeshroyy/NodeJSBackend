@@ -4,206 +4,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Edit Profile | Vibely</title>
-
     <link rel="stylesheet" href="/styles/style.css">
-
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="min-h-screen bg-slate-950 text-slate-200">
-
     <!-- Navbar -->
     <nav class="border-b border-slate-800 bg-slate-950/80 backdrop-blur">
-
         <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
-
             <!-- Logo -->
             <a href="/" class="font-space text-3xl font-bold">
                 Vibely<span class="text-blue-500">.</span>
             </a>
-
             <!-- Navigation -->
             <div class="flex items-center gap-5">
-
-                <a href="/"
-                    class="font-poppins text-sm text-slate-400 hover:text-blue-400 transition">
+                <a href="/" class="font-poppins text-sm text-slate-400 hover:text-blue-400 transition">
                     Home
                 </a>
-
-                <a href="/profile"
-                    class="font-poppins text-sm text-slate-400 hover:text-blue-400 transition">
+                <a href="/profile" class="font-poppins text-sm text-slate-400 hover:text-blue-400 transition">
                     Profile
                 </a>
-
-                <a href="/logout"
-                    class="font-poppins text-sm text-slate-400 hover:text-red-400 transition">
+                <a href="/logout" class="font-poppins text-sm text-slate-400 hover:text-red-400 transition">
                     Logout
                 </a>
-
             </div>
-
         </div>
-
     </nav>
-
-
     <!-- Main -->
     <main class="min-h-[calc(100vh-73px)] flex items-center justify-center px-5 py-10">
-
         <div class="w-full max-w-2xl">
-
             <!-- Heading -->
             <div class="mb-7">
-
-                <p class="font-caveat text-2xl text-blue-400">
-                    make it yours ✨
-                </p>
-
                 <h1 class="font-space text-4xl font-bold text-slate-100 mt-1">
                     Edit Profile
                 </h1>
-
                 <p class="font-dm text-slate-500 mt-2">
                     Update your Vibely profile information.
                 </p>
-
             </div>
-
-
             <!-- Form Card -->
-            <div
-                class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-blue-950/20">
-
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-blue-950/20">
                 <form action="/profile/edit" method="POST" class="space-y-6">
-
-
                     <!-- Profile Picture -->
                     <div>
-
-                        <label
-                            for="profilePicture"
-                            class="block font-poppins text-sm font-medium text-slate-300 mb-2">
+                        <label for="profilePicture" class="block font-poppins text-sm font-medium text-slate-300 mb-2">
                             Profile Picture
                         </label>
-
-                        <input
-                            type="url"
-                            id="profilePicture"
-                            name="profilePicture"
-                            value="<%= user.profilePicture || '' %>"
-                            placeholder="https://example.com/profile.jpg"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-dm text-slate-200 placeholder:text-slate-600 outline-none transition duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                        >
-
+                        <input type="url" id="profilePicture" name="profilePicture"
+                            value="<%= user.profilePicture || '' %>" placeholder="https://example.com/profile.jpg"
+                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-dm text-slate-200 placeholder:text-slate-600 outline-none transition duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
                         <p class="font-dm text-xs text-slate-600 mt-2">
                             Add a direct link to your profile image.
                         </p>
-
                     </div>
-
-
                     <!-- Name -->
                     <div>
-
-                        <label
-                            for="name"
-                            class="block font-poppins text-sm font-medium text-slate-300 mb-2">
+                        <label for="name" class="block font-poppins text-sm font-medium text-slate-300 mb-2">
                             Full Name
                         </label>
-
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value="<%= user.name %>"
-                            placeholder="Enter your name"
+                        <input type="text" id="name" name="name" value="<%= user.name %>" placeholder="Enter your name"
                             required
-                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-dm text-slate-200 placeholder:text-slate-600 outline-none transition duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                        >
-
+                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-dm text-slate-200 placeholder:text-slate-600 outline-none transition duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
                     </div>
-
-
                     <!-- Email -->
                     <div>
-
-                        <label
-                            for="email"
-                            class="block font-poppins text-sm font-medium text-slate-300 mb-2">
+                        <label for="email" class="block font-poppins text-sm font-medium text-slate-300 mb-2">
                             Email Address
                         </label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="<%= user.email %>"
-                            placeholder="you@example.com"
-                            disabled
-                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-dm text-slate-200 placeholder:text-slate-600 outline-none transition duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                        >
-
+                        <input type="email" id="email" name="email" value="<%= user.email %>"
+                            placeholder="you@example.com" disabled
+                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-dm text-slate-200 placeholder:text-slate-600 outline-none transition duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
                     </div>
-
-
                     <!-- Bio -->
                     <div>
-
-                        <label
-                            for="bio"
-                            class="block font-poppins text-sm font-medium text-slate-300 mb-2">
+                        <label for="bio" class="block font-poppins text-sm font-medium text-slate-300 mb-2">
                             Bio
                         </label>
-
-                        <textarea
-                            id="bio"
-                            name="bio"
-                            rows="4"
-                            maxlength="160"
+                        <textarea id="bio" name="bio" rows="4" maxlength="160"
                             placeholder="Tell people a little about yourself..."
-                            class="w-full resize-none bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-dm text-slate-200 placeholder:text-slate-600 outline-none transition duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                        ><%= user.bio || '' %></textarea>
-
+                            class="w-full resize-none bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 font-dm text-slate-200 placeholder:text-slate-600 outline-none transition duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"><%= user.bio || '' %></textarea>
                         <p class="font-dm text-xs text-slate-600 mt-2">
                             Keep it short — maximum 160 characters.
                         </p>
-
                     </div>
-
-
                     <!-- Buttons -->
                     <div class="flex flex-col-reverse sm:flex-row gap-3 pt-2">
-
-                        <a
-                            href="/profile"
+                        <a href="/profile"
                             class="w-full sm:w-auto text-center border border-slate-700 hover:border-slate-500 text-slate-300 font-poppins font-medium rounded-xl px-6 py-3 transition">
                             Cancel
                         </a>
-
-                        <button
-                            type="submit"
+                        <button type="submit"
                             class="w-full sm:w-auto sm:ml-auto bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-poppins font-semibold rounded-xl px-7 py-3 transition shadow-lg shadow-blue-600/20">
                             Save Changes
                         </button>
-
                     </div>
-
                 </form>
-
             </div>
-
-
-            <!-- Bottom -->
-            <p class="text-center font-caveat text-xl text-slate-600 mt-6">
-                Your profile, your story. ✨
-            </p>
-
         </div>
-
     </main>
-
 </body>
 
 </html>
