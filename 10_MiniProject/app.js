@@ -91,10 +91,8 @@ app.post('/login', async (req, res) => {
                 return res.send("Either email or password is incorrect")
             }
 
-            let token = jwt.sign({ id: loggedInUser._id, email: loggedInUser.email }, "secrets")
+            let token = jwt.sign({ id: loggedInUser._id, email: loggedInUser.email }, process.env.JWT_SECRETS)
             res.cookie("token", token)
-            console.log(result);
-            // res.send("You are logged in")
             res.redirect("/profile")
         })
 
@@ -103,46 +101,45 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.get('/profile', async (req, res) => {
+function isLoggedIn(req, res, next) {
     try {
-        const token = await req.cookies.token;
-
+        const token = req.cookies.token;
         if (!token) {
-            console.log("Token Not Present")
             return res.redirect('/login')
         }
 
-        const validUser = jwt.verify(token, "secrets")
+        else {
+            const currentUser = jwt.verify(token, process.env.JWT_SECRETS)
+            req.user = currentUser;
+            next();
+        }
+    } catch (err) {
+        console.error(err.message)
+        return res.redirect('/login');
+    }
+}
 
-        const user = await userModel.findOne({ _id: validUser.id })
-
+app.get('/profile', isLoggedIn, async (req, res) => {
+    try {
+        const user = await userModel.findById(req.user.id);
         res.render("userProfile", { user })
-
     } catch (error) {
         console.error(error.message);
     }
 })
 
-app.get('/profile/edit', async (req, res) => {
+app.get('/profile/edit', isLoggedIn, async (req, res) => {
 
-    let token = await req.cookies.token;
-
-    let user = await jwt.verify(token, "secrets")
-
-    let editUser = await userModel.findOne({ _id: user.id })
+    let editUser = await userModel.findById(req.user.id)
 
     res.render("editProfile", { user: editUser })
 })
 
-app.post('/profile/edit', async (req, res) => {
+app.post('/profile/edit', isLoggedIn, async (req, res) => {
     try {
-
         let { name, email, profilePicture, bio } = req.body
 
-        let token = await req.cookies.token;
-        let user = await jwt.verify(token, "secrets")
-
-        let updatedUser = await userModel.findOneAndUpdate({ _id: user.id }, {
+        let updatedUser = await userModel.findOneAndUpdate({ _id: req.user.id }, {
             name,
             email,
             profilePicture,
@@ -186,15 +183,12 @@ function fileFilter(req, file, cb) {
 
 const upload = multer({ storage: storage, fileFilter: fileFilter })
 
-app.post('/uploadProfilePicure', upload.single("profilePicture"), async (req, res) => {
+app.post('/uploadProfilePicure', isLoggedIn, upload.single("profilePicture"), async (req, res) => {
     try {
         console.log(req.file)
         const uploadedPicture = req.file
 
-        const token = await req.cookies.token
-        const user = jwt.verify(token, "secrets")
-
-        await userModel.findOneAndUpdate({ _id: user.id }, {
+        await userModel.findOneAndUpdate({ _id: req.user.id }, {
             profilePicture: uploadedPicture.path
         })
 
