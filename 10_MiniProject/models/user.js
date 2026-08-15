@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema({
 
     profilePicture: {
         type: String,
-        default: ""
+        default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMJKVQstQO43_3IPzb35-L5aCQHt9OtjCGUWne7IjoxMLRQBbM-Mbi2Q&s=10"
     },
 
     bio: {
