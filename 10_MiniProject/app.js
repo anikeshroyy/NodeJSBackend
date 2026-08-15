@@ -187,8 +187,21 @@ function fileFilter(req, file, cb) {
 const upload = multer({ storage: storage, fileFilter: fileFilter })
 
 app.post('/uploadProfilePicure', upload.single("profilePicture"), async (req, res) => {
-    console.log(req.file)
-    res.redirect('/profile/edit')
+    try {
+        console.log(req.file)
+        const uploadedPicture = req.file
+
+        const token = await req.cookies.token
+        const user = jwt.verify(token, "secrets")
+
+        await userModel.findOneAndUpdate({ _id: user.id }, {
+            profilePicture: uploadedPicture.path
+        })
+
+        res.redirect('/profile/edit')
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 app.listen(PORT, () => {
