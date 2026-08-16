@@ -102,6 +102,80 @@
                 </a>
             </div>
         </section>
+
+        <section class="mt-8">
+            <div class="flex items-center justify-between mb-5">
+
+                <h2 class="font-space text-2xl font-bold">
+                    Your Posts
+                </h2>
+
+                <button
+                    class="font-poppins text-sm bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl transition shadow-lg shadow-blue-600/20">
+                    + Create Post
+                </button>
+
+            </div>
+
+            <% if (post && post.length> 0) { %>
+                <div class="flex flex-col gap-5">
+                    <% post.forEach(post=> { %>
+                        <div
+                            class="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div>
+                                        <img src="<%= post.userProfilePicture %>" alt=""
+                                            class="w-10 h-10 rounded-full object-cover border border-slate-700">
+                                    </div>
+
+                                    <div>
+                                        <h3 class="font-poppins font-semibold text-sm">
+                                            <%= user.name %>
+                                        </h3>
+
+                                        <p class="font-dm text-xs text-slate-500">
+                                            @<%= post.user_UserName %> · <%= new
+                                                    Date(post.postTime).toLocaleString('en-IN', { day: '2-digit' ,
+                                                    month: 'short' , year: 'numeric' , hour: '2-digit' ,
+                                                    minute: '2-digit' }) %>
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <a href=""><button
+                                        class="font-dm text-md cursor-pointer flex items-center gap-1 text-slate-500 hover:text-red-400 transition px-2 py-1 rounded-lg hover:bg-red-500/10">
+                                        🗑
+                                    </button></a>
+                            </div>
+
+                            <p class="font-dm text-slate-300 leading-7 mt-4">
+                                <%= post.postContent %>
+                            </p>
+
+                            <% if (post.postImage) { %>
+                                <img src="<%= post.postImage %>" alt="Post image"
+                                    class="mt-4 rounded-xl w-full min-h-full object-cover border border-slate-800">
+                                <% } %>
+
+                                    <!-- Post Actions -->
+                                    <div class="flex items-center gap-6 mt-5 pt-4 border-t border-slate-800">
+                                        <button class="font-dm text-sm text-slate-500 hover:text-pink-400 transition">♡
+                                            Like</button>
+                                        <button class="font-dm text-sm text-slate-500 hover:text-blue-400 transition">💬
+                                            Comment</button>
+                                        <button class="font-dm text-sm text-slate-500 hover:text-green-400 transition">↗
+                                            Share</button>
+                                    </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <% } else { %>
+                    <div class="text-center py-16">
+                        <h1 class="font-poppins text-slate-500">No posts available</h1>
+                    </div>
+                    <% } %>
+        </section>
     </main>
 </body>
 

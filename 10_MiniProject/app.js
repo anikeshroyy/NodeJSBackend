@@ -13,6 +13,9 @@ const cookieParser = require('cookie-parser')
 
 const connectDb = require('./configs/DB_config')
 const userModel = require('./models/user')
+const postModel = require('./models/post')
+const user = require('./models/user')
+const post = require('./models/post')
 
 const app = express()
 const PORT = process.env.PORT || 3000;
@@ -124,7 +127,8 @@ app.post('/login', async (req, res) => {
 app.get('/profile', isLoggedIn, async (req, res) => {
     try {
         const user = await userModel.findById(req.user.id);
-        res.render("userProfile", { user })
+        const post = await postModel.find({ user: req.user.id })
+        res.render("userProfile", { user, post })
     } catch (error) {
         console.error(error.message);
     }
@@ -173,6 +177,26 @@ app.post('/uploadProfilePicure', isLoggedIn, upload.single("profilePicture"), as
         console.log(err);
     }
 })
+
+app.post('/create/post', isLoggedIn, async (req, res) => {
+    try {
+        const user = await userModel.findById(req.user.id);
+
+        const newPost = await postModel.create({
+            user: user._id,
+            user_UserName: user.username,
+            userProfilePicture: user.profilePicture,
+            postContent: req.body.postContent,
+            postImage: req.body.postImage,
+        });
+
+        res.redirect("/profile");
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Failed to create post");
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server started on ${PORT}`);
