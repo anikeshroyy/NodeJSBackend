@@ -3,11 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const ejs = require('ejs')
 
-const multer = require('multer')
-const crypto = require('crypto')
-
-const { CloudinaryStorage } = require('multer-storage-cloudinary')
-const cloudinary = require('cloudinary').v2;
+const upload = require('./configs/MULTER_config')
 
 const path = require('path')
 
@@ -15,7 +11,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
 
-const connectDb = require('./models/DB_config')
+const connectDb = require('./configs/DB_config')
 const userModel = require('./models/user')
 
 const app = express()
@@ -23,12 +19,6 @@ const PORT = process.env.PORT || 3000;
 
 // Database
 connectDb();
-
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_SECRETS,
-})
 
 // Middleware
 app.use(cookieParser())
@@ -75,7 +65,6 @@ app.post('/signup', async (req, res) => {
         console.error(error.message);
     }
 })
-
 
 app.post('/login', async (req, res) => {
     try {
@@ -156,32 +145,6 @@ app.get('/logout', async (req, res) => {
     res.clearCookie("token");
     res.redirect("/");
 })
-
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: (req, file) => 'vibely-users',
-
-        public_id: (req, file) => {
-            const name = file.originalname
-                .split(".")[0]
-                .replace(/\s+/g, "-");
-
-            return `${name}-${Date.now()}`;
-        },
-    },
-});
-
-function fileFilter(req, file, cb) {
-    if (file.mimetype.startsWith("image/")) {
-        cb(null, true)
-    }
-    else {
-        cb(new Error('Only images are allowed'))
-    }
-}
-
-const upload = multer({ storage: storage, fileFilter: fileFilter })
 
 app.post('/uploadProfilePicure', isLoggedIn, upload.single("profilePicture"), async (req, res) => {
     try {
