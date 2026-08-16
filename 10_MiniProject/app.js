@@ -31,10 +31,41 @@ app.use(express.static(path.join(__dirname, "public")));
 // EJS
 app.set("view engine", "ejs");
 
+function isLoggedIn(req, res, next) {
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.redirect('/login')
+        }
+
+        else {
+            const currentUser = jwt.verify(token, process.env.JWT_SECRETS)
+            req.user = currentUser;
+            next();
+        }
+    } catch (err) {
+        console.error(err.message)
+        return res.redirect('/login');
+    }
+}
+
 // Routes
-app.get('/', (req, res) => {
-    res.render("home")
-})
+app.get('/', async (req, res) => {
+    try {
+        const token = req.cookies.token;
+
+        if (!token) {
+            return res.render("home", { user: null });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRETS);
+        const user = await userModel.findById(decoded.id);
+
+        res.render("home", { user });
+    } catch (error) {
+        res.render("home", { user: null });
+    }
+});
 
 app.get('/signup', (req, res) => {
     res.render("signup")
@@ -89,24 +120,6 @@ app.post('/login', async (req, res) => {
         console.error(error.message);
     }
 })
-
-function isLoggedIn(req, res, next) {
-    try {
-        const token = req.cookies.token;
-        if (!token) {
-            return res.redirect('/login')
-        }
-
-        else {
-            const currentUser = jwt.verify(token, process.env.JWT_SECRETS)
-            req.user = currentUser;
-            next();
-        }
-    } catch (err) {
-        console.error(err.message)
-        return res.redirect('/login');
-    }
-}
 
 app.get('/profile', isLoggedIn, async (req, res) => {
     try {
