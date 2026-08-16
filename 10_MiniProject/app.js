@@ -4,6 +4,7 @@ const express = require('express')
 const ejs = require('ejs')
 
 const upload = require('./configs/MULTER_config')
+const uploadPostImage = require('./configs/MULTER_POST_config')
 
 const path = require('path')
 
@@ -178,8 +179,9 @@ app.post('/uploadProfilePicure', isLoggedIn, upload.single("profilePicture"), as
     }
 })
 
-app.post('/create/post', isLoggedIn, async (req, res) => {
+app.post('/create/post', isLoggedIn, uploadPostImage.single("postImage"), async (req, res) => {
     try {
+        const uploadedImg = req.file
         const user = await userModel.findById(req.user.id);
 
         const newPost = await postModel.create({
@@ -187,7 +189,7 @@ app.post('/create/post', isLoggedIn, async (req, res) => {
             user_UserName: user.username,
             userProfilePicture: user.profilePicture,
             postContent: req.body.postContent,
-            postImage: req.body.postImage,
+            postImage: uploadedImg.path,
         });
 
         res.redirect("/profile");
@@ -197,6 +199,11 @@ app.post('/create/post', isLoggedIn, async (req, res) => {
         res.status(500).send("Failed to create post");
     }
 });
+
+app.get('/create/post', isLoggedIn, async (req, res) => {
+    const user = await userModel.findById(req.user.id)
+    await res.render("createPost", { user })
+})
 
 app.listen(PORT, () => {
     console.log(`Server started on ${PORT}`);
