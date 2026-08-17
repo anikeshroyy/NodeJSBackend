@@ -57,15 +57,16 @@ function isLoggedIn(req, res, next) {
 app.get('/', async (req, res) => {
     try {
         const token = req.cookies.token;
+        const posts = await postModel.find();
 
         if (!token) {
-            return res.render("home", { user: null });
+            return res.render("home", { user: null, posts: posts });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRETS);
         const user = await userModel.findById(decoded.id);
 
-        res.render("home", { user });
+        res.render("home", { user, posts });
     } catch (error) {
         res.render("home", { user: null });
     }
