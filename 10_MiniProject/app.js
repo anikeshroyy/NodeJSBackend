@@ -57,7 +57,7 @@ function isLoggedIn(req, res, next) {
 app.get('/', async (req, res) => {
     try {
         const token = req.cookies.token;
-        const posts = await postModel.find();
+        const posts = (await postModel.find().sort({ postTime: -1 }))
 
         if (!token) {
             return res.render("home", { user: null, posts: posts });
@@ -129,7 +129,7 @@ app.post('/login', async (req, res) => {
 app.get('/profile', isLoggedIn, async (req, res) => {
     try {
         const user = await userModel.findById(req.user.id);
-        const post = await postModel.find({ user: req.user.id })
+        const post = await postModel.find({ user: req.user.id }).sort({ postTime: -1 })
         res.render("userProfile", { user, post })
     } catch (error) {
         console.error(error.message);
